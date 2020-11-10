@@ -1,0 +1,133 @@
+.moodboard {
+    margin-left: 50px;
+}
+
+.moodboard-top {
+    display: flex;
+    flex-direction: column;
+    padding-top: 50px;
+    padding-right: 50px;
+}
+
+.moodboard-top__options {
+    display: flex;
+    text-transform: uppercase;
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 3px;
+    color: rgb(87, 87, 87);
+    font-size: 13px;
+}
+
+.option {
+    background: none;
+    text-transform: uppercase;
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 3px;
+    color: rgb(87, 87, 87);
+    padding: 10px 20px;
+    border-bottom: 1px solid rgb(194, 194, 194);
+    z-index: 100;
+}
+
+.option:hover {
+    font-weight: bold;
+    color: black;
+    border-bottom: 2px solid gray;
+    cursor: pointer;
+}
+
+.moodboard-top__content {
+    height: 100px;
+    display: flex;
+    align-items: center;
+}
+
+.top__photos {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    gap: 20px;
+    margin-left: 20px;
+}
+
+.top__item {
+    height: 80px;
+    width: fit-content;
+    overflow: hidden;
+    border: 1px solid rgb(229, 229, 229);
+}
+
+.top__item:hover {
+    border: 1px solid gray;
+    /* box-shadow: 0 0 6px gray; */
+}
+
+.top__img {
+    height: 100%;
+}
+
+.content__add {
+    height: 80px;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid gray;
+    background-color: rgb(247, 245, 245);
+}
+
+.add-btn {
+    padding: 1px 5px;
+    border: 1px solid gray;
+    background-color: white;
+}
+
+.add-btn:hover {
+    background-color: rgb(75, 75, 75);
+    color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.moodboard-body {
+    display: flex;
+    margin-top: 50px;
+}
+
+.canvas {
+    position: relative;
+    width: 802px;
+    border: 1px solid gray;
+    height: 1200px;
+}
+
+canvas {
+    width: inherit;
+}
+
+.stage {
+    width: 800px;
+}
+
+.toolbelt {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    align-items: center;
+    z-index: 100;
+}
+
+.tool {
+    height: 40px;
+    width: 40px;
+    border: 1px solid gray;
+}
+
+.tool:hover {
+    background-color: gainsboro;
+}
