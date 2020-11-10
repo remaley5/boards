@@ -65,9 +65,9 @@ export function Text({ id, isSelected, type, canvas, stage, layer, ...shapeProps
         textarea.style.position = 'absolute';
         textarea.style.top = areaPosition.y + 'px';
         textarea.style.left = areaPosition.x + 'px';
-        textarea.style.width = node.width() - node.padding() * 2 + 'px';
+        textarea.style.width = node.width() * 2 + 'px';
         textarea.style.height =
-          node.height() - node.padding() * 2 + 5 + 'px';
+          node.height() * 2 + 5 + 'px';
         textarea.style.fontSize = node.fontSize() + 'px';
         textarea.style.border = 'none';
         textarea.style.padding = '10px';

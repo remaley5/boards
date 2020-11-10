@@ -1,5 +1,5 @@
 import { createStore } from "@halka/state";
-import produce from "immer";
+import produce, { current } from "immer";
 import clamp from "clamp";
 import { nanoid } from "nanoid";
 
@@ -13,9 +13,9 @@ const baseState = {
 };
 
 export const useShapes = createStore(() => {
-  //console.log('createStore')
+  console.log('createStore')
   const initialState = JSON.parse(localStorage.getItem(APP_NAMESPACE));
-  // //console.log('initialState', initialState) // image info
+  console.log('initialState', initialState) // image info
   return { ...baseState, shapes: initialState ?? {} };
 });
 
@@ -23,9 +23,10 @@ const setState = (fn) => useShapes.set(produce(fn));
 
 export const saveDiagram = () => {
   const state = useShapes.get();
-  //console.log('State.js--saveDiagram', state.shapes)
+  console.log('State.js--saveDiagram', state.shapes)
+  console.log('state', state)
   localStorage.setItem(APP_NAMESPACE, JSON.stringify(state.shapes));
-  //console.log('State.js--saveDiagram', localStorage[APP_NAMESPACE])
+  // console.log('State.js--saveDiagram', localStorage[APP_NAMESPACE])
 };
 
 export const reset = () => {
@@ -48,7 +49,7 @@ export const createRectangle = ({ x, y }) => {
   });
 };
 
-export const createPhoto = ({ x, y, width, height }) => {
+export const createPhoto = ({ x, y, width, height, currentPhoto }) => {
   //console.log('createPhoto')
   //console.log('width: ', width, 'height: ', height)
   setState((state) => {
@@ -56,6 +57,7 @@ export const createPhoto = ({ x, y, width, height }) => {
     state.shapes[nanoid()] = {
       type: SHAPE_TYPES.PHOTO,
       fill: DEFAULTS.PHOTO.FILL,
+      url: currentPhoto,
       rotation: DEFAULTS.PHOTO.ROTATION,
       width,
       height,
@@ -123,7 +125,7 @@ export const updateAttribute = (attr, value) => {
   //console.log('State.js--updateAttr', attr, value)
   setState((state) => {
     const shape = state.shapes[state.selected];
-
+    console.log('selected shape in state: ', shape)
     if (shape) {
       shape[attr] = value;
       //console.log('State.js--shape', shape)

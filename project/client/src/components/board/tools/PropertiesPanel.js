@@ -6,7 +6,7 @@ const shapeSelector = (state) => state.shapes[state.selected];
 
 const PropertiesPanel = () => {
   const selectedShape = useShapes(shapeSelector);
-  console.log(selectedShape)
+  // console.log(selectedShape)
   const updateAttr = useCallback((event) => {
     const attr = event.target.name;
     //console.log('PropertiesPanel-updateAttr', attr)

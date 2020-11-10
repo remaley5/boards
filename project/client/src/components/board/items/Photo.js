@@ -27,7 +27,7 @@ export function Photo({ id, isSelected, type, ...shapeProps }) {
     const shapeRef = useRef();
     const transformerRef = useRef();
 
-    const {currentPhoto} = shapeProps
+    const {url} = shapeProps
 
     useEffect(() => {
       // //console.log('shapeRef.current', shapeRef.current ) // Image object
@@ -37,7 +37,7 @@ export function Photo({ id, isSelected, type, ...shapeProps }) {
         }
     }, [isSelected]);
 
-  const [image] = useImage(currentPhoto)
+  const [image] = useImage(url)
 
   const handleSelect = useCallback(
     (event) => {

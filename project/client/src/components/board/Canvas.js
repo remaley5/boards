@@ -32,10 +32,11 @@ const Canvas = () => {
     //console.log('handleDrop' )
 
     const draggedData = event.nativeEvent.dataTransfer.getData(DRAG_DATA_KEY);
-    //console.log('draggedData', draggedData )
+    console.log('draggedData', draggedData )
+    console.log('data keys', Object.keys(draggedData))
     // {“type”:"image","offsetX":54,"offsetY":62,"clientWidth":67,"clientHeight":78,"currentPhoto":"https://sophie-boards-bucket.s3-us-west-2.amazonaws.com/WedNov41339252020.png","currentHeight":156,"currentWidth":134}
-    //console.log('draggedData.clientWidth', draggedData['clientWidth'], 'clientHeight', draggedData.clientHeight)
-    //console.log('draggedData.currentWidth', draggedData.currentWidth, 'currentHeight', draggedData.currentHeight)
+    // console.log('draggedData.clientWidth', draggedData['"clientWidth"'], 'clientHeight', draggedData.clientHeight)
+    // console.log('draggedData.currentWidth', draggedData.currentWidth, 'currentHeight', draggedData.currentHeight)
     // undefined?
 
     if (draggedData) {
@@ -43,6 +44,7 @@ const Canvas = () => {
         draggedData
       );
 
+      console.log('photo', currentPhoto)
 
       stageRef.current.setPointersPositions(event);
 
@@ -71,7 +73,7 @@ const Canvas = () => {
         //console.log('clientHeight: ', clientHeight, 'clientWidth: ', clientWidth)
 
         createPhoto({
-          currentPhoto,
+          currentPhoto: currentPhoto,
           x: coords.x - offsetX,
           y: coords.y - offsetY,
           height: clientHeight,
@@ -103,7 +105,7 @@ const Canvas = () => {
       >
         <Layer ref={layerRef} className='layer'>
           {shapes.map(([key, shape ], i) => (
-            <Shape key={key} shape={{ ...shape, id: key, currentPhoto: photos[i]}} stage={stageRef} layer={layerRef}/>
+            <Shape key={key} shape={{ ...shape, id: key }} stage={stageRef} layer={layerRef}/>
           ))}
         </Layer>
       </Stage>
