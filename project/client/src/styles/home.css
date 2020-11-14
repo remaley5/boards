@@ -35,3 +35,81 @@
     background-color: rgba(255, 255, 255, 0.671);
     padding: 20px;
 }
+
+.sketchbook-options {
+    display: flex;
+    gap: 20px;
+}
+
+.sketchbook-option {
+    background: none;
+    text-transform: lowercase;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(167, 167, 167);
+    text-decoration: underline;
+    font-size: 15px;
+    letter-spacing: 2px;
+}
+
+.sketchbook-option:hover {
+    color: rgb(82, 82, 82);
+    text-decoration: none;
+}
+
+.gap {
+    padding: 40px;
+}
+
+.dialog-preview {
+    height: 200px;
+    width: 200px;
+    border: 1px solid gray;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.title-input {
+    text-align: center;
+    padding: 15px;
+    font-size: 20px;
+    background-color: rgba(255, 255, 255, 0.564);
+    text-transform: uppercase;
+    overflow: wrap;
+    color: rgb(85, 85, 85);
+    max-width: 198px;
+    min-width: 198px;
+    min-height: 50px;
+}
+
+.description-input {
+    text-align: center;
+    padding: 15px;
+    font-size: 15px;
+    background-color: rgba(255, 255, 255, 0.564);
+    text-transform: lowercase;
+    overflow: wrap;
+    color: rgb(80, 80, 80);
+    max-width: 198px;
+    min-width: 198px;
+    min-height: 50px;
+}
+
+.dialog-btns {
+    display: flex;
+    margin-top: 60px;
+}
+
+.dialog-btn {
+    background: none;
+    border: 1px solid rgb(196, 196, 196);
+    padding: 10px 20px;
+    text-transform: uppercase;
+    color: gray;
+}
+
+.dialog-btn:hover {
+    background-color: gray;
+    color: white;
+    border: none;
+}

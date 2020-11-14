@@ -2,6 +2,7 @@ import { createStore } from "@halka/state";
 import produce, { current } from "immer";
 import clamp from "clamp";
 import { nanoid } from "nanoid";
+import {AuthContext} from '.././../../context'
 
 import { SHAPE_TYPES, DEFAULTS, LIMITS } from "./constants";
 
@@ -21,11 +22,20 @@ export const useShapes = createStore(() => {
 
 const setState = (fn) => useShapes.set(produce(fn));
 
-export const saveDiagram = () => {
+export const saveDiagram = (currentUserId, fetchWithCSRF, board) => {
+  console.log('board', board)
+  console.log('currentUserId', currentUserId)
+  console.log('fetch', fetchWithCSRF)
   const state = useShapes.get();
   console.log('State.js--saveDiagram', state.shapes)
   console.log('state', state)
-  localStorage.setItem(APP_NAMESPACE, JSON.stringify(state.shapes));
+  // localStorage.setItem(APP_NAMESPACE, JSON.stringify(state.shapes));
+  // let response = await fetchWithCSRF(`/api-photos/boards/${currentUserId}`, {
+  //   method: 'POST',
+  //   body: newBoard,
+  // });
+  // console.log(response.json());
+
   // console.log('State.js--saveDiagram', localStorage[APP_NAMESPACE])
 };
 
@@ -124,11 +134,13 @@ export const moveShape = (id, event) => {
 export const updateAttribute = (attr, value) => {
   //console.log('State.js--updateAttr', attr, value)
   setState((state) => {
+    console.log(JSON.stringify(state.shapes))
     const shape = state.shapes[state.selected];
     console.log('selected shape in state: ', shape)
     if (shape) {
       shape[attr] = value;
-      //console.log('State.js--shape', shape)
+      const shapeObject = JSON.stringify(shape)
+    console.log('State.js--shape', shapeObject)
     }
   });
 };

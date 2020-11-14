@@ -1,4 +1,4 @@
-from backend.models import User
+from backend.models import User, Photo, SketchBook
 from backend import app, db
 from dotenv import load_dotenv
 
@@ -13,12 +13,18 @@ with app.app_context():
 
     db.session.add(ian)
 
-    one = Photo(user_id=1, photo_url='https://sophie-boards-bucket.s3-us-west-2.amazonaws.com/TueNov31743522020.png')
-    two = Photo(user_id=1, photo_url='https://sophie-boards-bucket.s3-us-west-2.amazonaws.com/TueNov31745162020.png')
-    three = Photo(user_id=1, photo_url='https://sophie-boards-bucket.s3-us-west-2.amazonaws.com/TueNov32222192020.png')
+    photo_one = Photo(user_id=1, photo_url='https://sophie-boards-bucket.s3-us-west-2.amazonaws.com/WedNov41339012020.png')
+    photo_two = Photo(user_id=1, photo_url='https://sophie-boards-bucket.s3-us-west-2.amazonaws.com/WedNov41339202020.png')
+    photo_three = Photo(user_id=1, photo_url='https://sophie-boards-bucket.s3-us-west-2.amazonaws.com/WedNov41339252020.png')
 
-    db.session.add(one)
-    db.session.add(two)
-    db.session.add(three)
+    db.session.add(photo_one)
+    db.session.add(photo_two)
+    db.session.add(photo_three)
+
+    sketchbook_one = SketchBook(user_id=1, title='test book', cover_img='https://sophie-boards-bucket.s3-us-west-2.amazonaws.com/WedNov41339012020.png', description="this is my first sketchbook and I'm doing my best!" )
+    sketchbook_two = SketchBook(user_id=1, title='Best book', description="I'm testing you!")
+
+    db.session.add(sketchbook_one)
+    db.session.add(sketchbook_two)
 
     db.session.commit()

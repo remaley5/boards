@@ -70,6 +70,7 @@ const Palette = ({ type }) => {
             {photos.map((url, idx) => (
               <div className='top__item' key={url}>
                 <img
+                  crossOrigin='Anonymous'
                   src={url}
                   name={`photo-${idx}`}
                   className="top__img"

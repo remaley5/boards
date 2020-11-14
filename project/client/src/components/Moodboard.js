@@ -1,11 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
-// import Upload from './board/tools/Upload'
 import Canvas from './board/Canvas'
 import Palette from './board/Palette';
 import PropertiesPanel from './board/tools/PropertiesPanel'
-// import cherub_one from '../images/cherub.jpeg'
-// import cherub_two from '../images/cherub2.jpeg'
-// import cherub_three from '../images/cherubs3.jpg'
 const categories = ['images', 'text', 'shapes', 'pallets']
 
 function Moodboard() {
@@ -14,6 +10,20 @@ function Moodboard() {
     const handleClick = e => {
         setType(e.target.value)
     }
+
+    // const downloadURI = (uri, name) => {
+    //     const link = document.createElement('a');
+    //     link.download = name;
+    //     link.href = uri;
+    //     document.body.appendChild(link)
+    //     link.click();
+    //     document.body.removeChild(link);
+    //     delete link;
+    // }
+    // const handleSave = () => {
+    //     const dataURL = stage.toDataURL();
+    //     downloadURI(dataURL, 'stage.png')
+    // }
 
     return (
         <div className='moodboard'>
@@ -28,6 +38,7 @@ function Moodboard() {
                 </div>
             </div>
             <div className='moodboard-body'>
+                {/* <button id='save' onClick={handleSave}>Save as PNG</button> */}
                 <Canvas />
                 <PropertiesPanel />
             </div>

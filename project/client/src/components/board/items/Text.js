@@ -174,6 +174,7 @@ export function Text({ id, isSelected, type, canvas, stage, layer, ...shapeProps
                 onClick={handleSelect}
                 onTap={handleSelect}
                 onDragStart={handleSelect}
+                crossOrigin='Anonymous'
                 ref={shapeRef}
                 {...shapeProps}
                 draggable

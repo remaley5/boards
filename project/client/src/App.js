@@ -5,6 +5,7 @@ import { AuthContext, PhotoContext } from './context';
 import { ProtectedRoute, AuthRoute } from './Routes'
 import Landing from './components/Landing'
 import Home from './components/Home'
+import Sketchbook from './components/Sketchbook'
 import Nav from './components/Nav'
 import Signup from './components/auth/Signup'
 import Moodboard from './components/Moodboard'
@@ -77,10 +78,6 @@ const App = () => {
     return (
         <AuthContext.Provider value={authContextValue}>
             <PhotoContext.Provider value={photoContextValue}>
-                {location.pathname !== "/landing" ? (
-                    <nav className='navbar-cont'>
-                        <Nav currentUserId={currentUserId} />
-                    </nav>) : null}
                 <Switch >
                     <AuthRoute path='/landing' component={Landing} />
                     <AuthRoute
@@ -98,6 +95,12 @@ const App = () => {
                         path="/moodboard"
                         exact
                         component={Moodboard}
+                        currentUserId={currentUserId}
+                    />
+                    <ProtectedRoute
+                        path="/sketchbook/:id"
+                        exact
+                        component={Sketchbook}
                         currentUserId={currentUserId}
                     />
                 </Switch>

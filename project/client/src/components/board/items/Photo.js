@@ -24,20 +24,24 @@ export function Photo({ id, isSelected, type, ...shapeProps }) {
   //console.log('Photo')
   //console.log('isSelected', isSelected)
   //console.log('shapeProps', shapeProps)
-    const shapeRef = useRef();
-    const transformerRef = useRef();
+  const shapeRef = useRef();
+  const transformerRef = useRef();
 
-    const {url} = shapeProps
+  const { url } = shapeProps
 
-    useEffect(() => {
-      // //console.log('shapeRef.current', shapeRef.current ) // Image object
-        if (isSelected) {
-            transformerRef.current.nodes([shapeRef.current]);
-            transformerRef.current.getLayer().batchDraw();
-        }
-    }, [isSelected]);
+  useEffect(() => {
+    // //console.log('shapeRef.current', shapeRef.current ) // Image object
+    if (isSelected) {
+      transformerRef.current.nodes([shapeRef.current]);
+      transformerRef.current.getLayer().batchDraw();
+    }
+  }, [isSelected]);
 
-  const [image] = useImage(url)
+  // const [image, status] = useImage(url, 'Anonymous');
+
+  const image = new Image();
+  image.src = url
+  image.crossOrigin = 'Anonymous'
 
   const handleSelect = useCallback(
     (event) => {
@@ -66,20 +70,23 @@ export function Photo({ id, isSelected, type, ...shapeProps }) {
     [id]
   );
 
+  if (image) {
+    image.crossOrigin = 'Anonymous'
+  }
+
   return (
-    <>
-      <KonvaImage
+    <>{ image.crossOrigin ?
+       <KonvaImage
         className='photo'
         onClick={handleSelect}
         onTap={handleSelect}
         image={image}
-        onDragStart={handleSelect}
         ref={shapeRef}
         {...shapeProps}
         draggable
         onDragEnd={handleDrag}
         onTransformEnd={handleTransform}
-      />
+      /> : null }
       {isSelected && (
         <Transformer
           keepRatio={true}

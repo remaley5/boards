@@ -23,7 +23,7 @@ def upload_file_to_s3(f, bucket_name, acl="public-read"):
             f, bucket_name, f.filename,
             ExtraArgs={
                 "ACL": acl,
-                "ContentType": f.content_type
+                "ContentType": f.content_type,
             }
         )
         photoUrl = "{}{}".format(

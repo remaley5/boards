@@ -57,6 +57,7 @@ export function Circle({ id, isSelected, type, ...shapeProps }) {
         onClick={handleSelect}
         onTap={handleSelect}
         onDragStart={handleSelect}
+        crossOrigin='Anonymous'
         ref={shapeRef}
         {...shapeProps}
         draggable

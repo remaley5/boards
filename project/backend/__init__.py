@@ -25,7 +25,7 @@ app = Flask(__name__)
 
 app.config.from_object(Config)
 app.register_blueprint(note_routes, url_prefix='/api-notes')
-app.register_blueprint(sketchbook_routes, url_prefix='/api-sketchbooks')
+app.register_blueprint(sketchbook_routes, url_prefix='/api-sketchbook')
 app.register_blueprint(tool_routes, url_prefix='/api-tools')
 app.register_blueprint(user_routes, url_prefix='/api-user')
 app.register_blueprint(photo_routes, url_prefix='/api-photos')

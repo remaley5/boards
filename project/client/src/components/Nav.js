@@ -16,7 +16,7 @@ const Nav = () => {
     }
 
     return (
-        <div className='nav'>
+        <div className='nav-text'>
             <NavLink to='/'><button className='nav-link home-link'>sophie</button></NavLink>
             <button onClick={logoutUser} className='nav-link logout-link'>Logout</button>
             <NavLink to='/moodboard'><button className='nav-link test-link'>moodboard</button></NavLink>
