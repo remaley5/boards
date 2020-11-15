@@ -1,0 +1,106 @@
+.dialog-header {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+    font-size: 30px;
+    letter-spacing: 4px;
+    padding: 5px;
+    border: 1px solid rgb(225, 225, 225);
+    width: 100%;
+}
+
+.sketchbook-header {
+    font-size: 60px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    padding-left: 50px;
+}
+
+.boards {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.boards-sidebar {
+    padding: 20px;
+    display: flex;
+    width: 90%;
+    margin: auto;
+    gap: 50px;
+    overflow: scroll;
+}
+
+.board-container {
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.board-img {
+    height: 100%;
+    border: 1px solid rgb(215, 215, 215);
+}
+
+.board-title {
+    position: absolute;
+    text-align: center;
+    text-transform: lowercase;
+    background-color: rgba(255, 255, 255, 0.685);
+    color: rgb(92, 91, 91);
+    width: 100%;
+    padding: 5px;
+}
+
+.board-view {
+    width: 90%;
+    margin: auto;
+    max-width: 800px;
+}
+
+.board-view__img {
+    width: 100%;
+    margin: auto;
+}
+
+.board-view__title {
+    font-size: 40px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgb(96, 96, 96);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgb(189, 189, 189);
+}
+
+.no-boards {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-end;
+    margin-top: -60px;
+    padding-right: 80px;
+    overflow: visible;
+}
+
+.no-boards__text {
+    font-size: 30px;
+    margin-right: 61px;
+    margin-top: -25px;
+    text-transform: lowercase;
+    border: 3px solid rgb(58, 58, 58);
+    padding: 20px;
+    background-color: gray;
+    color: white;
+}
+
+.no-boards__arrow {
+    font-size: 80px;
+    color: rgb(58, 58, 58);
+}

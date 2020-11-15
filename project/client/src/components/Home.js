@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import Sketches from './home/Sketches'
 import Nav from './Nav'
 import { TextareaAutosize } from "@material-ui/core";
-import {AuthContext} from '../context'
+import { AuthContext } from '../context'
 
 
 
@@ -29,35 +29,36 @@ const Home = () => {
     }
 
     const handleOpen = () => {
-        console.log('opening')
         setOpen(true);
     };
 
     const handleClose = () => {
-        console.log('closing')
         setOpen(false);
     };
 
-    const handleSave = async() => {
+    const handleSave = async () => {
         const sketchbook = {
             title,
             color,
             description
         }
         let response = await fetchWithCSRF(`/api-sketchbook/new/${currentUserId}`, {
-			method: 'POST',
-			body: JSON.stringify(sketchbook),
+            method: 'POST',
+            body: JSON.stringify(sketchbook),
         });
 
     }
 
     return (
-        <div className='home'>
-            <div className='nav'>
-                <Nav />
-                <button onClick={handleOpen} className="add-btn">
-                    +
+        <div className='page'>
+            <div className='page-header'>
+                <div></div>
+                <div className='nav'>
+                    <Nav />
+                    <button onClick={handleOpen} className="add-btn">
+                        +
 				</button>
+                </div>
             </div>
             <Sketches />
             <dialog className='page-mask' onClose={handleClose} open={open}>

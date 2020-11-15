@@ -1,5 +1,6 @@
 import React, { useRef, useCallback, useState, useContext, useEffect } from "react";
 import { Layer, Stage, Text } from "react-konva";
+import { NavLink } from 'react-router-dom';
 import useImage from 'use-image';
 import {AuthContext} from '../../context'
 
@@ -18,7 +19,7 @@ import { Shape } from './items/Shape';
 
 const handleDragOver = (event) => event.preventDefault();
 
-const Canvas = () => {
+const Canvas = ({sketchbookId, title}) => {
   const { fetchWithCSRF, currentUserId } = useContext(AuthContext);
   const shapes = useShapes((state) => Object.entries(state.shapes));
   //console.log('shapes', shapes) // Array(2)
@@ -36,8 +37,6 @@ const Canvas = () => {
     //console.log('handleDrop' )
 
     const draggedData = event.nativeEvent.dataTransfer.getData(DRAG_DATA_KEY);
-    console.log('draggedData', draggedData)
-    console.log('data keys', Object.keys(draggedData))
     // {“type”:"image","offsetX":54,"offsetY":62,"clientWidth":67,"clientHeight":78,"currentPhoto":"https://sophie-boards-bucket.s3-us-west-2.amazonaws.com/WedNov41339252020.png","currentHeight":156,"currentWidth":134}
     // console.log('draggedData.clientWidth', draggedData['"clientWidth"'], 'clientHeight', draggedData.clientHeight)
     // console.log('draggedData.currentWidth', draggedData.currentWidth, 'currentHeight', draggedData.currentHeight)
@@ -121,41 +120,46 @@ const Canvas = () => {
     return new Blob([ia], {type:mimeString});
 }
 
-	const handleSave = (e) => {
+	const handleSave = async(e) => {
     const dataURL = stageRef.current.toDataURL();
     const blob = dataURItoBlob(dataURL)
-		setBoard(blob);
-	};
-
-	useEffect(() => {
-		const formData = new FormData();
-    formData.append("file", board);
-    formData.append("title", "Sophie's Moodboard")
-		if(board){
-			postBoard(formData);
-		}
-	}, [board])
-
-
-	const postBoard = async (formData) => {
-    const sketchBookId = 1
-		let response = await fetchWithCSRF(`/api-photos/sketchbook/${sketchBookId}`, {
+    const formData = new FormData();
+    formData.append("file", blob);
+    formData.append("title", title)
+    let response = await fetchWithCSRF(`/api-photos/sketchbook/${sketchbookId}`, {
 			method: 'POST',
 			body: formData,
 		});
-		if (response.ok) {
-			const data = await response.json()
-			setTimeout(() => {
-
-			}, 1000);
-		}
 	};
+
+	// useEffect(() => {
+	// 	const formData = new FormData();
+  //   formData.append("file", board);
+  //   formData.append("title", title)
+	// 	if(board){
+	// 		postBoard(formData);
+	// 	}
+	// }, [board])
+
+
+	// const postBoard = async (formData) => {
+	// 	let response = await fetchWithCSRF(`/api-photos/sketchbook/${sketchbookId}`, {
+	// 		method: 'POST',
+	// 		body: formData,
+	// 	});
+	// 	if (response.ok) {
+	// 		const data = await response.json()
+	// 		setTimeout(() => {
+
+	// 		}, 1000);
+	// 	}
+	// };
 
 
   return (
     <main className="canvas" onDrop={handleDrop} onDragOver={handleDragOver} ref={canvasRef}>
       <div className="canvas__btns">
-        <button className='canvas__btn' onClick={handleSave}>Save</button>
+        <NavLink to={`/sketchbook/${sketchbookId}`} className='canvas__btn' onClick={handleSave}>Save</NavLink>
         <button className='canvas__btn' onClick={reset}>Reset</button>
         <button id='save' className='canvas__btn' onClick={handleSave}>Download</button>
 
@@ -163,7 +167,7 @@ const Canvas = () => {
       <Stage
         ref={stageRef}
         width={800}
-        height={window.innerHeight}
+        height={1200}
         onClick={clearSelection}
         className='stage'
       >

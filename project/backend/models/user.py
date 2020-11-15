@@ -79,5 +79,6 @@ class Board(db.Model):
     def to_dict(self):
         return {
         'sketchbook_id': self.sketchbook_id,
-        'photo_url': self.photo_url
+        'photo_url': self.photo_url,
+        'title': self.title
         }

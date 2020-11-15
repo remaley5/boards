@@ -14,21 +14,14 @@ const baseState = {
 };
 
 export const useShapes = createStore(() => {
-  console.log('createStore')
   const initialState = JSON.parse(localStorage.getItem(APP_NAMESPACE));
-  console.log('initialState', initialState) // image info
   return { ...baseState, shapes: initialState ?? {} };
 });
 
 const setState = (fn) => useShapes.set(produce(fn));
 
 export const saveDiagram = (currentUserId, fetchWithCSRF, board) => {
-  console.log('board', board)
-  console.log('currentUserId', currentUserId)
-  console.log('fetch', fetchWithCSRF)
   const state = useShapes.get();
-  console.log('State.js--saveDiagram', state.shapes)
-  console.log('state', state)
   // localStorage.setItem(APP_NAMESPACE, JSON.stringify(state.shapes));
   // let response = await fetchWithCSRF(`/api-photos/boards/${currentUserId}`, {
   //   method: 'POST',
@@ -52,6 +45,7 @@ export const createRectangle = ({ x, y }) => {
       height: DEFAULTS.RECT.HEIGHT,
       fill: DEFAULTS.RECT.FILL,
       stroke: DEFAULTS.RECT.STROKE,
+      strokeWidth: DEFAULTS.RECT.STROKEWIDTH,
       rotation: DEFAULTS.RECT.ROTATION,
       x,
       y,
@@ -66,9 +60,9 @@ export const createPhoto = ({ x, y, width, height, currentPhoto }) => {
     // //console.log(state.shapes)
     state.shapes[nanoid()] = {
       type: SHAPE_TYPES.PHOTO,
-      fill: DEFAULTS.PHOTO.FILL,
       url: currentPhoto,
-      rotation: DEFAULTS.PHOTO.ROTATION,
+      rotation: DEFAULTS.ROTATION,
+      strokeWidth: DEFAULTS.STROKEWIDTH,
       width,
       height,
       x,
@@ -83,8 +77,9 @@ export const createCircle = ({ x, y }) => {
     state.shapes[nanoid()] = {
       type: SHAPE_TYPES.CIRCLE,
       radius: DEFAULTS.CIRCLE.RADIUS,
-      fill: DEFAULTS.CIRCLE.FILL,
-      stroke: DEFAULTS.CIRCLE.STROKE,
+      fill: DEFAULTS.FILL,
+      strokeWidth: DEFAULTS.STROKEWIDTH,
+      stroke: DEFAULTS.STROKE,
       x,
       y,
     };
@@ -96,7 +91,7 @@ export const createText = ({ x, y }) => {
     state.shapes[nanoid()] = {
       type: SHAPE_TYPES.TEXT,
       padding: 10,
-      rotation: DEFAULTS.TEXT.ROTATION,
+      rotation: DEFAULTS.ROTATION,
       x,
       y,
     };

@@ -4,9 +4,10 @@ import Palette from './board/Palette';
 import PropertiesPanel from './board/tools/PropertiesPanel'
 const categories = ['images', 'text', 'shapes', 'pallets']
 
-function Moodboard() {
+function Moodboard(props) {
     const [type, setType] = useState('images')
-
+    const sketchbookId = parseInt(props.match.params.id, 10);
+    const title = props.match.params.title;
     const handleClick = e => {
         setType(e.target.value)
     }
@@ -39,7 +40,7 @@ function Moodboard() {
             </div>
             <div className='moodboard-body'>
                 {/* <button id='save' onClick={handleSave}>Save as PNG</button> */}
-                <Canvas />
+                <Canvas sketchbookId={sketchbookId} title={title}/>
                 <PropertiesPanel />
             </div>
         </div>

@@ -79,15 +79,16 @@
 }
 
 .add-btn {
-    padding: 1px 5px;
-    border: 1px solid gray;
+    font-size: 20px;
+    padding: 0px 7px;
+    border: 1px solid rgb(75, 75, 75);
     background-color: white;
+    z-index: 1000;
 }
 
 .add-btn:hover {
     background-color: rgb(75, 75, 75);
     color: white;
-    border: none;
     font-weight: bold;
     cursor: pointer;
 }
@@ -132,4 +133,27 @@ canvas {
 
 .tool:hover {
     background-color: gainsboro;
+}
+
+.text {
+    border: 1px solid gray;
+    height: 80px;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(232, 232, 232);
+}
+
+.text_t {
+    border: 1px solid gray;
+    background-color: rgb(255, 253, 253);
+    padding: 2px 6px;
+    color: rgb(78, 78, 78);
+}
+
+.text_t:hover {
+    background-color: rgb(87, 86, 86);
+    color: white;
+    border: none;
 }

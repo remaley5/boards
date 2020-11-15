@@ -28,6 +28,7 @@ def upload(userId):
 def uploadBoard(sketchBookId):
     f = request.files['file']
     title = request.form['title']
+    print('TITLE-----------------', title)
     f.filename = change_name(f.filename)
     photo_url = upload_file_to_s3(f, 'sophie-boards-bucket')
     if f:

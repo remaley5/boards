@@ -1,13 +1,10 @@
 import React, { useRef, useEffect, useCallback, useContext } from "react";
 import { Image as KonvaImage, Transformer } from "react-konva";
-import useImage from 'use-image';
-import { PhotoContext } from "../../../context";
-import cherub_three from '../../../images/cherub.jpeg'
 import { LIMITS } from "./constants";
 import { selectShape, transformPhotoShape, moveShape } from "./state";
 
 const boundBoxCallbackForPhoto = (oldBox, newBox) => {
-  //console.log('Photo.js--boundBoxCallbackForPhoto', 'oldBox: ', oldBox, 'newBox', newBox )
+
   if (
     newBox.width < LIMITS.PHOTO.MIN ||
     newBox.height < LIMITS.PHOTO.MIN ||
@@ -21,31 +18,25 @@ const boundBoxCallbackForPhoto = (oldBox, newBox) => {
 
 
 export function Photo({ id, isSelected, type, ...shapeProps }) {
-  //console.log('Photo')
-  //console.log('isSelected', isSelected)
-  //console.log('shapeProps', shapeProps)
   const shapeRef = useRef();
   const transformerRef = useRef();
 
   const { url } = shapeProps
 
   useEffect(() => {
-    // //console.log('shapeRef.current', shapeRef.current ) // Image object
     if (isSelected) {
       transformerRef.current.nodes([shapeRef.current]);
       transformerRef.current.getLayer().batchDraw();
     }
   }, [isSelected]);
 
-  // const [image, status] = useImage(url, 'Anonymous');
-
   const image = new Image();
+
   image.src = url
   image.crossOrigin = 'Anonymous'
 
   const handleSelect = useCallback(
     (event) => {
-      // //console.log('handleSelect', event) // currentTarget { attrs { photo info }}
       event.cancelBubble = true;
 
       selectShape(id);
@@ -55,8 +46,6 @@ export function Photo({ id, isSelected, type, ...shapeProps }) {
 
   const handleDrag = useCallback(
     (event) => {
-      //console.log('handleDrag: ', 'id: ', id, 'event: ',  event)
-      // id: with randomized generator
       moveShape(id, event);
     },
     [id]
@@ -64,7 +53,6 @@ export function Photo({ id, isSelected, type, ...shapeProps }) {
 
   const handleTransform = useCallback(
     (event) => {
-      //console.log('handleTransform: ','current', shapeRef.current, 'id', id, 'event', event  )
       transformPhotoShape(shapeRef.current, id, event);
     },
     [id]

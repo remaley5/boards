@@ -18,8 +18,9 @@ const Sketches = () => {
         <>
             <div className='sketches__con'>
                 {sketchbooks.map((sketchbook) => (
-                    <div className='sketch__con'>
-                        <NavLink to={`/sketchbook/${sketchbook.id}`} className='sketch__title'>{sketchbook.title}</NavLink>
+                    <div className='sketch__con' style={{ backgroundColor: sketchbook.color }}>
+                        <NavLink to={`/sketchbook/${sketchbook.id}/${sketchbook.title}`} className='sketch__description'>{sketchbook.description}</NavLink>
+                        <div className='sketch__title'>{sketchbook.title}</div>
                     </div>
                 ))}
             </div>

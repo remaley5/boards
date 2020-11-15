@@ -1,13 +1,21 @@
 .nav {
     display: flex;
     flex-direction: column;
-    width: 95%;
     align-items: flex-end;
     margin-bottom: 30px;
-    padding-right: 100px;
     gap: 7px;
-    position: fixed;
-    padding-top: 30px;
+    z-index: 1000;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  background:none;
+  z-index: 500;
+}
+
+.page {
+  padding: 50px;
 }
 
 .nav-text {

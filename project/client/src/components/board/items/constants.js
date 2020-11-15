@@ -6,21 +6,14 @@ export const SHAPE_TYPES = {
   };
 
   export const DEFAULTS = {
-    RECT: {
-      STROKE: "#000000",
-      FILL: "#ffffff",
-      WIDTH: 150,
-      HEIGHT: 100,
-      ROTATION: 0,
-    },
+    STROKE: "#000000",
+    STROKEWIDTH: 2,
+    FILL: "#ffffff",
+    WIDTH: 150,
+    HEIGHT: 100,
+    ROTATION: 0,
     CIRCLE: {
-      STROKE: "#000000",
-      FILL: "#ffffff",
       RADIUS: 50,
-    },
-    PHOTO: {
-      STROKE: "#FFF000",
-      ROTATION: 0,
     },
     TEXT: {
       WIDTH: 150,

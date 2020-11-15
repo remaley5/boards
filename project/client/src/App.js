@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Switch, useLocation } from 'react-router-dom';
 
-import { AuthContext, PhotoContext } from './context';
+import { AuthContext, PhotoContext, TextContext } from './context';
 import { ProtectedRoute, AuthRoute } from './Routes'
 import Landing from './components/Landing'
 import Home from './components/Home'
@@ -17,12 +17,21 @@ const App = () => {
     const [loading, setLoading] = useState(true);
     const [otherUserId, setOtherUserId] = useState(null);
     const [photos, setPhotos] = useState([])
+    const [currentTextBox, setCurrentTextBox] = useState('')
     const [currentPhoto, setCurrentPhoto] = useState(null)
+    const [text, setText] = useState('enter text')
 
     const photoContextValue = {
         currentPhoto,
         setCurrentPhoto,
         photos
+    }
+
+    const textContextValue = {
+        text,
+        setText,
+        currentTextBox,
+        setCurrentTextBox
     }
 
     const authContextValue = {
@@ -78,6 +87,7 @@ const App = () => {
     return (
         <AuthContext.Provider value={authContextValue}>
             <PhotoContext.Provider value={photoContextValue}>
+                <TextContext.Provider value={textContextValue}>
                 <Switch >
                     <AuthRoute path='/landing' component={Landing} />
                     <AuthRoute
@@ -98,12 +108,19 @@ const App = () => {
                         currentUserId={currentUserId}
                     />
                     <ProtectedRoute
-                        path="/sketchbook/:id"
+                        path="/sketchbook/:id/:title"
                         exact
                         component={Sketchbook}
                         currentUserId={currentUserId}
                     />
+                    <ProtectedRoute
+                        path="/sketchbook/new-board/:id/:title"
+                        exact
+                        component={Moodboard}
+                        currentUserId={currentUserId}
+                    />
                 </Switch>
+                </TextContext.Provider>
             </PhotoContext.Provider>
         </AuthContext.Provider>
     )

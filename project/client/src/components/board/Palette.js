@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { PhotoContext } from '../../context'
 import Upload from '../board/tools/Upload'
+import TextEditor from './tools/TextEditor'
 
 import { DRAG_DATA_KEY, SHAPE_TYPES } from "./items/constants";
 
@@ -102,10 +103,10 @@ const Palette = ({ type }) => {
             <aside className='moodboard-top__content'>
               <div className='top__photos'>
                 <div
-                  className='shape text'
+                  className='text'
                   data-shape={SHAPE_TYPES.TEXT}
                   draggable
-                  onDragStart={handleDragStart}/>
+                  onDragStart={handleDragStart}><div className='text_t'>T</div></div>
               </div>
             </aside>
       : null }
