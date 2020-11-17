@@ -1,0 +1,56 @@
+.sign-up-page {
+    padding-top: 100px;
+}
+
+.sign-up {
+    width: 400px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+}
+
+.sign-in__title {
+    padding-bottom: 30px;
+}
+
+.sign-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-label {
+    font-size: 15px;
+    text-transform: uppercase;
+}
+
+.sign-in__text {
+    border: 1px solid gray;
+    font-size: 20px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.sign-form-btn {
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid gray;
+    text-decoration: none;
+    text-transform: uppercase;
+    background-color: white;
+    color: gray;
+}
+
+.sign-form-btn:hover {
+    background-color: rgb(82, 80, 80);
+    color: white;
+    border: 1px solid rgb(82, 80, 80);
+}
+.right {
+
+}
+
+.left {
+
+}

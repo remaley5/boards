@@ -19,7 +19,7 @@ export function Shape({ shape, stage, canvas, layer }) {
     return <Rectangle {...shape} isSelected={isSelected} />;
   } else if (shape.type === SHAPE_TYPES.CIRCLE) {
     return <Circle {...shape} isSelected={isSelected} />;
-  }else if (shape.type === SHAPE_TYPES.PHOTO) {
+  } else if (shape.type === SHAPE_TYPES.PHOTO) {
     return <Photo {...shape} isSelected={isSelected} />;
   } else if (shape.type === SHAPE_TYPES.TEXT) {
     return <Text {...shape} isSelected={isSelected} stage={stage} canvas={canvas} layer={layer}/>;

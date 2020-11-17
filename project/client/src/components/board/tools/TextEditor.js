@@ -1,35 +1,56 @@
 // import { Editor } from 'react-draft-wysiwyg';
 // import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import React, {useState, useContext} from 'react'
+import React, {useState, useContext, createRef} from 'react'
 import ReactQuill, {getContents} from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import {TextContext} from '../.././../context'
+import {TextContext} from '../../../context'
+import {createText, createPhoto} from '../items/state'
+import html2canvas from 'html2canvas'
+import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 
 const TextEditor = props => {
     const [theme, setTheme] = useState('snow')
-    const {text, setText} = useContext(TextContext);
-
-    const handleChange = (html) => {
-      const text = html2Canvas(html)
-      text.backgroundColor = 'rgba(0, 0, 0, 0)'
-    }
-
-    const handleThemeChange = newTheme => {
-        if (newTheme === 'core') newTheme = null
-        setTheme(newTheme)
+    // const {text, setText} = useContext(TextContext);
+    const [html, setHtml] = useState('enter text')
+    const quillRef = createRef();
+    const {setNewText} = props
+    const handleSubmit = async() => {
+      const htmlToJpeg = document.querySelector('.ql-editor')
+      const height = htmlToJpeg.clientHeight
+      const width = htmlToJpeg.clientWidth
+      console.log(htmlToJpeg)
+      console.log(htmlToJpeg.clientHeight)
+      const image = await toPng(document.querySelector('.ql-editor'), {
+        backgroundColor: 'transparent',
+      })
+      console.log(image)
+      // console.log(quillRef.current.state.value)
+      // const quill = quillRef.current.state.value
+      // const text = await html2canvas(quill)
+      // console.log(text)
+        createPhoto({
+          currentPhoto: image,
+          height,
+          width,
+          x: 377,
+          y: 377,
+        })
+        setNewText(false)
     }
 
     return (
         <div>
           <ReactQuill
             theme={theme}
-            onChange={handleChange}
-            value={text}
+            value={html}
             modules={TextEditor.modules}
             formats={TextEditor.formats}
+            onChange={setHtml}
             bounds={'.app'}
             placeholder={props.placeholder}
+            ref={quillRef}
            />
+           <button className='canvas__btn tool-btn' onClick={handleSubmit}>Add to canvas</button>
          </div>
        )
 }

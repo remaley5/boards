@@ -6,8 +6,13 @@ const categories = ['images', 'text', 'shapes', 'pallets']
 
 function Moodboard(props) {
     const [type, setType] = useState('images')
+    const [newText, setNewText] = useState(false)
+
     const sketchbookId = parseInt(props.match.params.id, 10);
+    const sketchbookTitle = props.match.params.title
+    console.log('sketchbookId', sketchbookId)
     const title = props.match.params.title;
+
     const handleClick = e => {
         setType(e.target.value)
     }
@@ -21,6 +26,7 @@ function Moodboard(props) {
     //     document.body.removeChild(link);
     //     delete link;
     // }
+
     // const handleSave = () => {
     //     const dataURL = stage.toDataURL();
     //     downloadURI(dataURL, 'stage.png')
@@ -35,13 +41,13 @@ function Moodboard(props) {
                     ))}
                 </div>
                 <div className='moodboard-top__content' draggable='false'>
-                    <Palette type={type}/>
+                    <Palette type={type} setNewText={setNewText} newText={newText} />
                 </div>
             </div>
             <div className='moodboard-body'>
                 {/* <button id='save' onClick={handleSave}>Save as PNG</button> */}
-                <Canvas sketchbookId={sketchbookId} title={title}/>
-                <PropertiesPanel />
+                <Canvas sketchbookId={sketchbookId} sketchbookTitle={sketchbookTitle} title={title}/>
+                <PropertiesPanel newText={newText} setNewText={setNewText}/>
             </div>
         </div>
     );

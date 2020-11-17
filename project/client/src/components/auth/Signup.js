@@ -54,7 +54,7 @@ function Signup(props) {
       setErrors(responseData.errors);
     } else {
       setCurrentUserId(responseData.current_user_id)
-      history.push('/set_preferences')
+      history.push(`/`)
     }
   };
 
@@ -98,7 +98,7 @@ function Signup(props) {
           />
           <div className='sign-form-btns'>
             <button onClick={handleSignUp} className='sign-form-btn left'>Sign Up</button>
-            <NavLink className='sign-form-btn right' to="/login">Login Instead</NavLink>
+            <NavLink className='sign-form-btn right' to="/landing">Login Instead</NavLink>
           </div>
         </form>
       </div>

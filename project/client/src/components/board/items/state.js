@@ -10,6 +10,7 @@ const APP_NAMESPACE = "__boards__";
 
 const baseState = {
   selected: null,
+  newText: false,
   shapes: {},
 };
 
@@ -54,10 +55,7 @@ export const createRectangle = ({ x, y }) => {
 };
 
 export const createPhoto = ({ x, y, width, height, currentPhoto }) => {
-  //console.log('createPhoto')
-  //console.log('width: ', width, 'height: ', height)
   setState((state) => {
-    // //console.log(state.shapes)
     state.shapes[nanoid()] = {
       type: SHAPE_TYPES.PHOTO,
       url: currentPhoto,
@@ -73,7 +71,6 @@ export const createPhoto = ({ x, y, width, height, currentPhoto }) => {
 
 export const createCircle = ({ x, y }) => {
   setState((state) => {
-    //console.log(state)
     state.shapes[nanoid()] = {
       type: SHAPE_TYPES.CIRCLE,
       radius: DEFAULTS.CIRCLE.RADIUS,
@@ -86,12 +83,12 @@ export const createCircle = ({ x, y }) => {
   });
 };
 
-export const createText = ({ x, y }) => {
+export const createText = ({ x, y, image }) => {
   setState((state) => {
     state.shapes[nanoid()] = {
       type: SHAPE_TYPES.TEXT,
-      padding: 10,
       rotation: DEFAULTS.ROTATION,
+      image,
       x,
       y,
     };
@@ -99,22 +96,24 @@ export const createText = ({ x, y }) => {
 };
 
 export const selectShape = (id) => {
-  // //console.log('selectShape, id: ', id)
-  // consistent ID (created with the random generator)
   setState((state) => {
     state.selected = id;
   });
 };
 
 export const clearSelection = () => {
-  //console.log('State.js---100--cleared')
   setState((state) => {
     state.selected = null;
   });
 };
 
+export const createNewText = () => {
+  setState((state) => {
+    state.newText = true;
+  });
+}
+
 export const moveShape = (id, event) => {
-  //console.log('moveShape')
   setState((state) => {
     const shape = state.shapes[id];
 
@@ -122,20 +121,16 @@ export const moveShape = (id, event) => {
       shape.x = event.target.x();
       shape.y = event.target.y();
     }
-  //console.log('moveShape', shape)
   });
 };
 
 export const updateAttribute = (attr, value) => {
-  //console.log('State.js--updateAttr', attr, value)
   setState((state) => {
     console.log(JSON.stringify(state.shapes))
     const shape = state.shapes[state.selected];
-    console.log('selected shape in state: ', shape)
     if (shape) {
       shape[attr] = value;
       const shapeObject = JSON.stringify(shape)
-    console.log('State.js--shape', shapeObject)
     }
   });
 };

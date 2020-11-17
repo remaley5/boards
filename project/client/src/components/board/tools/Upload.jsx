@@ -1,13 +1,14 @@
 import React, { useState, useContext, useEffect } from 'react';
 import {AuthContext} from '../../../context'
 
-function Upload({open, setOpen}) {
+function Upload({setLoading}) {
 	const [photoFile, setPhotoFile] = useState(null);
 	const [photos, setPhotos] = useState([])
 	const { fetchWithCSRF, currentUserId } = useContext(AuthContext);
 
 	const handleChange = (e) => {
 		e.preventDefault()
+		setLoading(true)
 		setPhotoFile(e.target.files[0]);
 	};
 
@@ -28,10 +29,8 @@ function Upload({open, setOpen}) {
 		});
 		if (response.ok) {
 			const data = await response.json()
-			setTimeout(() => {
-
-			}, 1000);
 			setPhotos([...photos, data.photo])
+			setLoading(false)
 		}
 	};
 

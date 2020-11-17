@@ -8,6 +8,7 @@ const Sketchbook = (props) => {
     const [boards, setBoards] = useState(null)
     const [open, setOpen] = useState(false)
     const [title, setTitle] = useState('board title')
+    const [loading, setLoading] = useState(true)
     const [currentBoard, setCurrentBoard] = useState(null)
 
     useEffect(() => {
@@ -15,8 +16,21 @@ const Sketchbook = (props) => {
             const response = await fetch(`/api-sketchbook/boards/${sketchbookId}`)
             const data = await response.json()
             if (data.boards.length >= 1) {
-                setBoards(data.boards)
+                const boardsData = data.boards
+                console.log(boardsData)
+                const boards = []
+                while(boardsData.length >= 1) {
+                    const image = boardsData.pop()
+                    console.log(image)
+                    image.crossOrigin = 'Anonymous'
+                    boards.push(image)
+                }
+                setBoards(boards)
+                if (boards.length >= 1) {
+                    setCurrentBoard(boards[0])
+                }
             }
+            setLoading(false)
         })()
     }, [sketchbookId])
 
@@ -37,6 +51,17 @@ const Sketchbook = (props) => {
         setTitle('board title')
     };
 
+    // const handleDownload = () => {
+    //     const uri = currentBoard.photo_url
+    //     const name = `${currentBoard.name}.png`
+    //     const link = document.createElement('a');
+    //     link.download = name;
+    //     link.href = uri;
+    //     document.body.appendChild(link)
+    //     link.click();
+    //     document.body.removeChild(link);
+    // }
+
     return (
         <div className='page'>
             <div className='page-header'>
@@ -48,6 +73,7 @@ const Sketchbook = (props) => {
 				</button>
                 </div>
             </div>
+            {loading ? <div className='loading'>loading your boards...</div>:
             <div className='boards'>
                 {boards ?
                     <div className='boards-sidebar'>
@@ -68,13 +94,13 @@ const Sketchbook = (props) => {
                         <div className='board-view__title'>{currentBoard.title}</div>
                         <img src={currentBoard.photo_url} alt={currentBoard.title} className='board-view__img' />
                     </div> : null}
-            </div>
+            </div>}
             <dialog className='page-mask' onClose={handleClose} open={open}>
                 <div className='dialog-content'>
                     <input className='dialog-header' onChange={handleChange} value={title} />
                     <div className='dialog-btns'>
                         <button className='close-dialog-btn dialog-btn' onClick={handleClose}>cancel</button>
-                        <NavLink to={`/sketchbook/new-board/${sketchbookId}/${title}`} className='close-dialog-btn dialog-btn'>create</NavLink>
+                        <NavLink to={`/sketchbook/new-board/${sketchbookId}/${sketchbookTitle}`} className='close-dialog-btn dialog-btn'>create</NavLink>
                     </div>
                 </div>
             </dialog>

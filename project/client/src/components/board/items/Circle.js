@@ -5,7 +5,6 @@ import { LIMITS } from "./constants";
 import { selectShape, transformCircleShape, moveShape } from "./state";
 
 const boundBoxCallbackForCircle = (oldBox, newBox) => {
-  // limit resize
   if (
     newBox.width < LIMITS.CIRCLE.MIN ||
     newBox.height < LIMITS.CIRCLE.MIN ||
@@ -31,7 +30,6 @@ export function Circle({ id, isSelected, type, ...shapeProps }) {
   const handleSelect = useCallback(
     (event) => {
       event.cancelBubble = true;
-
       selectShape(id);
     },
     [id]

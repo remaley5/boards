@@ -1,16 +1,19 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import TextEditor from './TextEditor'
 import { useShapes, updateAttribute } from "../items/state";
 
 const shapeSelector = (state) => state.shapes[state.selected];
 
-const PropertiesPanel = () => {
+const PropertiesPanel = ({ newText, setNewText }) => {
   const selectedShape = useShapes(shapeSelector);
-  console.log('SELECTED', selectedShape)
+  console.log('newText', newText)
 
   const updateAttr = useCallback((event) => {
-    const attr = event.target.name;
-    const value = parseInt(event.target.value, 10)
+    let attr = event.target.name;
+    let value = event.target.value
+    if (event.target.name == 'strokeWidth'){
+      value = parseInt(event.target.value, 10)
+    }
     console.log('ATTRIBUTE', attr, event.target.value)
     updateAttribute(attr, value);
 
@@ -20,13 +23,16 @@ const PropertiesPanel = () => {
     <aside className="toolbelt">
       <h2 className='section__title'>toolbelt</h2>
       <div className="properties">
-        {selectedShape ? (
+        {selectedShape || newText ? (
           <div className='board__tools'>
             <div className="key type">
-              <span className="value">{selectedShape.type}</span>
+              {newText ?
+                <span className="value">text</span>
+                : <span className="value">{selectedShape.type}</span>
+              }
             </div>
-            {selectedShape.type === 'text' ?
-              <TextEditor />
+            {newText || selectedShape.type === 'text' ?
+              <TextEditor setNewText={setNewText}/>
               :
               <div>
 

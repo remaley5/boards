@@ -4,7 +4,7 @@ sketchbook_routes = Blueprint('sketchbook_routes', __name__)
 import json
 
 @sketchbook_routes.route("/new/<int:userId>", methods=['POST'])
-def upload(userId):
+def createNewSketchbook(userId):
     data = json.loads(request.data)
     sketchbook = SketchBook(user_id=userId, title=data['title'], cover_img=data['color'], description=data['description'])
     db.session.add(sketchbook)

@@ -4,7 +4,6 @@ import { LIMITS } from "./constants";
 import { selectShape, transformPhotoShape, moveShape } from "./state";
 
 const boundBoxCallbackForPhoto = (oldBox, newBox) => {
-
   if (
     newBox.width < LIMITS.PHOTO.MIN ||
     newBox.height < LIMITS.PHOTO.MIN ||
@@ -17,11 +16,11 @@ const boundBoxCallbackForPhoto = (oldBox, newBox) => {
 };
 
 
-export function Photo({ id, isSelected, type, ...shapeProps }) {
+export function Text({ id, isSelected, type, ...shapeProps }) {
   const shapeRef = useRef();
   const transformerRef = useRef();
 
-  const { url } = shapeProps
+  const { image } = shapeProps
 
   useEffect(() => {
     if (isSelected) {
@@ -30,10 +29,9 @@ export function Photo({ id, isSelected, type, ...shapeProps }) {
     }
   }, [isSelected]);
 
-  const image = new Image();
+  const newImage = new Image();
 
-  image.src = url
-  image.crossOrigin = 'Anonymous'
+  newImage.src = image
 
   const handleSelect = useCallback(
     (event) => {
@@ -58,17 +56,14 @@ export function Photo({ id, isSelected, type, ...shapeProps }) {
     [id]
   );
 
-  if (image) {
-    image.crossOrigin = 'Anonymous'
-  }
-
   return (
-    <>{ image.crossOrigin ?
+    <>
+     {/* { image.crossOrigin ? */}
        <KonvaImage
         className='photo'
         onClick={handleSelect}
         onTap={handleSelect}
-        image={image}
+        image={newImage}
         ref={shapeRef}
         {...shapeProps}
         draggable

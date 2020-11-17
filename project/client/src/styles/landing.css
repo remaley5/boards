@@ -86,55 +86,55 @@ button.login__btn {
     bottom: 0;
     top: 0;
     background-color: rgba(0, 0, 0, 0.479);
-    z-index: 200;
+    z-index: 1000;
     width: 100%;
     height: 100%;
 
   }
 
+  .login__con {
+    margin-top: 200px;
+  }
+
   .login__dialog {
     width: 500px;
     margin: auto;
-    margin-top: 200px;
     background-color: white;
     padding: 30px;
-    border-radius: 15px;
     box-shadow: 0 0 30px rgb(54, 54, 54);
     display: flex;
     flex-direction: column;
+    margin-top: 200px;
     gap: 20px;
   }
 
-  /* .exit-cont {
+  .exit-cont {
     width: 90%;
     padding: 30px;
     display: flex;
     justify-content: flex-end;
     margin-bottom: -70px;
 
-  } */
+  }
 
   .exit-sign {
     width: fit-content;
-    border-radius: 50%;
-    border: none;
-    background-color: rgb(220, 225, 228);
-    color:white;
+    border: 1px solid gray;
+    background-color: white;
+    color:gray;
     font-size: 20px;
     padding: 2px 9px;
     float: right;
   }
 
   .exit-sign:hover {
-    box-shadow: 0 0 6px gray;
+    color: white;
+    background-color: rgb(73, 73, 73);
   }
 
   .login__title {
-    font-family: 'Poppins', sans-serif;
-    text-align: center;
-    font-size: 30px;
-    color: rgb(87, 86, 86);
-    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
   }
 
   .login__errors {
@@ -142,7 +142,7 @@ button.login__btn {
     margin-bottom: 20px;
     font-size: 20px;
   }
-  .login__form {
+  /* .login__form {
     font-family: 'Poppins', sans-serif;
     display: flex;
     flex-direction: column;
@@ -156,17 +156,18 @@ button.login__btn {
     margin-bottom: 30px;
     letter-spacing: 1.5px;
     color:gray;
-  }
+  } */
 
   .form-label {
     color: gray;
   }
 
   .login__btns {
+    padding-top: 20px;
     display: flex;
-    justify-content: flex-end;
-    padding-right: 5px;
+    justify-content: center;
   }
+
 
   .login__btn {
     background-color: white;
@@ -177,6 +178,7 @@ button.login__btn {
     text-transform: lowercase;
   }
 
+  /*
   .login__btn:hover {
     color: white;
     background-color: gray;
@@ -188,7 +190,7 @@ button.login__btn {
 
   .login__btn.left {
     border-radius: 20px 0px 0px 20px;
-  }
+  } */
 
   /* .sign-up {
     width: 50%;

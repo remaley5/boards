@@ -3,6 +3,7 @@ import Sketches from './home/Sketches'
 import Nav from './Nav'
 import { TextareaAutosize } from "@material-ui/core";
 import { AuthContext } from '../context'
+import { useHistory, NavLink } from 'react-router-dom';
 
 
 
@@ -13,6 +14,7 @@ const Home = () => {
     const [title, setTitle] = useState('Title')
     const [description, setDescription] = useState("description")
     const [color, setColor] = useState('rgb(247, 207, 207)');
+    const history = useHistory()
 
     const options = ['title', 'description']
 
@@ -46,6 +48,9 @@ const Home = () => {
             method: 'POST',
             body: JSON.stringify(sketchbook),
         });
+        let data = await response.json()
+
+        history.push(`/sketchbook/${data.id}/${data.title}`)
 
     }
 

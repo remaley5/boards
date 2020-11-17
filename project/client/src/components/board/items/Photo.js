@@ -4,6 +4,7 @@ import { LIMITS } from "./constants";
 import { selectShape, transformPhotoShape, moveShape } from "./state";
 
 const boundBoxCallbackForPhoto = (oldBox, newBox) => {
+  //console.log('Photo.js--boundBoxCallbackForPhoto', 'oldBox: ', oldBox, 'newBox', newBox )
 
   if (
     newBox.width < LIMITS.PHOTO.MIN ||
@@ -15,7 +16,6 @@ const boundBoxCallbackForPhoto = (oldBox, newBox) => {
   }
   return newBox;
 };
-
 
 export function Photo({ id, isSelected, type, ...shapeProps }) {
   const shapeRef = useRef();
@@ -63,7 +63,8 @@ export function Photo({ id, isSelected, type, ...shapeProps }) {
   }
 
   return (
-    <>{ image.crossOrigin ?
+    <>
+    { image.crossOrigin ?
        <KonvaImage
         className='photo'
         onClick={handleSelect}

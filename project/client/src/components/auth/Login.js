@@ -7,7 +7,7 @@ const Login = ({ setOpen }) => {
     let [email, setEmail] = useState('')
     let [password, setPassword] = useState('')
     let [errors, setErrors] = useState([])
-    const { fetchWithCSRF, setCurrentUserId } = useContext(AuthContext);
+    const { fetchWithCSRF, setCurrentUserId} = useContext(AuthContext);
     let history = useHistory();
 
     const handlePasswordChange = e => {
@@ -57,42 +57,36 @@ const Login = ({ setOpen }) => {
 
     return (
         <div className='login__con'>
-            <div className='login__dialog'>
+            <div className='sign-up login__dialog'>
                 <div className='login__content'>
                     <button onClick={handleClose} className='exit-sign'>x</button>
-                    <div className='login__title'>
+                    <h1 className='sign-in__title login__title'>
                         Sign in
-              </div>
+              </h1>
                     <div className='login__errors' id="form-dialog-title" onClose={handleClose}>
                         {errors.length ? errors.map((err) => <li key={err}>{err}</li>) : ''}
                     </div>
-                    <div className='login__form'>
+                    <div className='sign-form login__form'>
                         <label className='form-label' htmlFor="email">Email</label>
                         <input
-                            className='login__text'
-                            margin="none"
-                            variant="outlined"
+                            className='sign-in__text login__text'
                             id="email"
                             type="email"
                             placeholder="Email"
-                            fullWidth
                             onChange={handleEmailChange}
                         />
                         <label className='form-label' htmlFor="password">Password</label>
                         <input
-                            className='login__text'
-                            margin="none"
+                            className='sign-in__text login__text'
                             id="password"
-                            variant="outlined"
                             type="password"
                             placeholder="Password"
-                            fullWidth
                             onChange={handlePasswordChange}
                         />
                     </div>
                     <div className='login__btns'>
-                        <button className='login__btn left' onClick={handleSubmit}>login</button>
-                        <button className='login__btn' onClick={handleDemoSubmit}>Demo</button>
+                        <button className='sign-form-btn login__btn left' onClick={handleSubmit}>login</button>
+                        <button className='sign-form-btn login__btn' onClick={handleDemoSubmit}>Demo</button>
                     </div>
                 </div>
             </div>
