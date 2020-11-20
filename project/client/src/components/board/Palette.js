@@ -1,14 +1,17 @@
 import React, { useContext, useState, useEffect} from "react";
 import { AuthContext } from '../../context'
 import Upload from '../board/tools/Upload'
+import {getPhotos} from './items/state';
+import AddPhotos from "./items/AddPhotos";
 import { DRAG_DATA_KEY, SHAPE_TYPES } from "./items/constants";
-import { useShapes, updateAttribute } from "../../components/board/items/state";
+import { Photo } from "./items/Photo";
+const folder_id = 1;
 
 const Palette = ({ type, setNewText, newText }) => {
   // const { photos } = useContext(PhotoContext)
   const { currentUserId } = useContext(AuthContext);
   const [photos, setPhotos] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [load, setLoad] = useState(false)
 
   const handleNewText = () => {
     setNewText(true)
@@ -19,7 +22,9 @@ const Palette = ({ type, setNewText, newText }) => {
     let currentHeight = null
     let currentPhoto = null
     let currentWidth = null
+
     const type = event.target.dataset.shape;
+    console.log('draggging ....', type)
     if (type) {
       if (type === 'image') {
         currentWidth = event.target.width * 2
@@ -43,31 +48,34 @@ const Palette = ({ type, setNewText, newText }) => {
         currentHeight,
         currentWidth
       });
-
+      console.log(dragPayload);
       event.nativeEvent.dataTransfer.setData(DRAG_DATA_KEY, dragPayload);
     }
   };
 
   useEffect(() => {
-    if (!loading) (
-      (async () => {
-        const res = await fetch(`/api-photos/${currentUserId}`)
-        const data = await res.json();
-        setPhotos(data)
-      })())
-  }, [loading])
+    const gotPhotos = getPhotos()
+    setPhotos(gotPhotos)
+    console.log('GOT PHOTOS', gotPhotos)
+    // if (!loading) (
+    //   (async () => {
+    //     const res = await fetch(`/api-photos/${folder_id}`)
+    //     const data = await res.json();
+    //     setPhotos(data)
+    //   })())
+  }, [])
 
   return (
     <>
       { (type === 'images') ?
         <aside className='moodboard-top__content'>
           <div className='top__photos'>
-            <Upload setLoading={setLoading} />
-            {photos.map((url, idx) => (
-              <div className='top__item' key={url}>
+            <AddPhotos setPhotoState={setPhotos}/>
+            {photos.map((photo, idx) => (
+              <div className='top__item' key={photo.photo_url}>
                 <img
                   crossOrigin='Anonymous'
-                  src={url}
+                  src={photo.photo_url}
                   name={`photo-${idx}`}
                   className="top__img"
                   data-shape={SHAPE_TYPES.PHOTO}
@@ -98,7 +106,7 @@ const Palette = ({ type, setNewText, newText }) => {
             <aside className='moodboard-top__content'>
               <div className='top__photos'>
                 <div className='text'>
-                  <button onClick={handleNewText} className='text_t'>T</button>
+                  <button onDragStart={handleDragStart} data-shape={SHAPE_TYPES.TEXT} draggable className='text_t'>T</button>
                 </div>
               </div>
             </aside>

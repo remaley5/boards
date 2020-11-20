@@ -3,6 +3,7 @@ from . import utcnow
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
+
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
@@ -27,21 +28,45 @@ class User(db.Model, UserMixin):
             return False, user
         return check_password_hash(user.password_digest, password), user
 
-class Photo(db.Model):
-    __tablename__ = 'photos'
+
+class PhotoFolder(db.Model):
+    __tablename__ = 'photo_folders'
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(
         "users.id"), nullable=False)
-    photo_url = db.Column(db.String, nullable=False)
+    title = db.Column(db.String)
+    color = db.Column(db.String, nullable=True)
+    description = db.Column(db.String)
 
     user = db.relationship("User")
 
     def to_dict(self):
         return {
-        'photo_url': self.photo_url,
-        'user_id': self.user_id
+            'id': self.id,
+            'title': self.title,
+            'color': self.color,
+            'description': self.description
         }
+
+
+class Photo(db.Model):
+    __tablename__ = 'photos'
+
+    id = db.Column(db.Integer, primary_key=True)
+    folder_id = db.Column(db.Integer, db.ForeignKey(
+        "photo_folders.id"), nullable=False)
+    photo_url = db.Column(db.String, nullable=False)
+
+    photo_folder = db.relationship("PhotoFolder", backref='photos')
+
+    def to_dict(self):
+        return {
+            'photo_url': self.photo_url,
+            'folder_id': self.folder_id,
+            'id': self.id
+        }
+
 
 class SketchBook(db.Model):
     __tablename__ = 'sketchbooks'
@@ -50,7 +75,7 @@ class SketchBook(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(
         "users.id"), nullable=False)
     title = db.Column(db.String)
-    cover_img = db.Column(db.String, nullable=True)
+    color = db.Column(db.String, nullable=True)
     description = db.Column(db.String)
     archived = db.Column(db.Boolean, nullable=True)
 
@@ -58,10 +83,10 @@ class SketchBook(db.Model):
 
     def to_dict(self):
         return {
-        'id': self.id,
-        'title': self.title,
-        'color': self.cover_img,
-        'description': self.description
+            'id': self.id,
+            'title': self.title,
+            'color': self.color,
+            'description': self.description
         }
 
 
@@ -78,7 +103,7 @@ class Board(db.Model):
 
     def to_dict(self):
         return {
-        'sketchbook_id': self.sketchbook_id,
-        'photo_url': self.photo_url,
-        'title': self.title
+            'sketchbook_id': self.sketchbook_id,
+            'photo_url': self.photo_url,
+            'title': self.title
         }

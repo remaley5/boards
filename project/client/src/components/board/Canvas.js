@@ -63,8 +63,26 @@ const Canvas = ({sketchbookId, sketchbookTitle, title}) => {
           height: clientHeight,
           width: clientWidth
         });
+      } else if (type === SHAPE_TYPES.TEXT) {
+        createText({
+          x: coords.x - offsetX,
+          y: coords.y - offsetY,
+          height: 100,
+          width: 100
+        });
       }
     }
+
+    saveDiagram()
+      //  else if (type === SHAPE_TYPES.TEXT) {
+      //   createPhoto({
+      //     currentPhoto: currentPhoto,
+      //     x: coords.x - offsetX,
+      //     y: coords.y - offsetY,
+      //     height: clientHeight,
+      //     width: clientWidth
+      //   });
+      // }
   }, []);
 
   const downloadURI = () => {
@@ -99,6 +117,7 @@ const Canvas = ({sketchbookId, sketchbookTitle, title}) => {
 }
 
 	const handleSave = async(e) => {
+    clearSelection();
     const dataURL = stageRef.current.toDataURL();
     const blob = dataURItoBlob(dataURL)
     const formData = new FormData();
@@ -110,7 +129,8 @@ const Canvas = ({sketchbookId, sketchbookTitle, title}) => {
 			method: 'POST',
 			body: formData,
     });
-    alert('saving....')
+    alert('saved')
+    reset();
     history.push(`/sketchbook/${sketchbookId}/${sketchbookTitle}`)
 	};
 

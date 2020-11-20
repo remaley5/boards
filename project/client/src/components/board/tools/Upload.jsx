@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import {AuthContext} from '../../../context'
 
-function Upload({setLoading}) {
+function Upload({setLoading, currentFolderId}) {
 	const [photoFile, setPhotoFile] = useState(null);
 	const [photos, setPhotos] = useState([])
 	const { fetchWithCSRF, currentUserId } = useContext(AuthContext);
@@ -23,7 +23,8 @@ function Upload({setLoading}) {
 
 
 	const postPhoto = async (formData) => {
-		let response = await fetchWithCSRF(`/api-photos/${currentUserId}`, {
+		console.log('CURRENT FOLDER ID', currentFolderId)
+		let response = await fetchWithCSRF(`/api-photos/${currentFolderId}`, {
 			method: 'POST',
 			body: formData,
 		});
@@ -32,6 +33,7 @@ function Upload({setLoading}) {
 			setPhotos([...photos, data.photo])
 			setLoading(false)
 		}
+		console.log(response)
 	};
 
 	return (

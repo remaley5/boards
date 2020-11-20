@@ -13,7 +13,7 @@ def upload(sketchbookId):
     if f:
         try:
             board = Board(
-                sketchbook_id=userId, photo_url=photo_url, name='test_board')
+                sketchbook_id=sketchbookId, photo_url=photo_url, name='test_board')
             db.session.add(board)
             db.session.commit()
 

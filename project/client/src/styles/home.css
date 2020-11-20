@@ -55,10 +55,12 @@
     line-height: 23px;
 }
 
+
 .sketch__description:hover {
     opacity: 100;
     z-index: 1000;
 }
+
 
 .sketch__description:hover + .hide {
     display: block;

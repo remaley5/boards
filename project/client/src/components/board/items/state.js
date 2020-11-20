@@ -7,7 +7,7 @@ import {AuthContext} from '.././../../context'
 import { SHAPE_TYPES, DEFAULTS, LIMITS } from "./constants";
 
 const APP_NAMESPACE = "__boards__";
-
+const BOARD_PHOTOS = '__photos__';
 const baseState = {
   selected: null,
   newText: false,
@@ -16,22 +16,34 @@ const baseState = {
 
 export const useShapes = createStore(() => {
   const initialState = JSON.parse(localStorage.getItem(APP_NAMESPACE));
-  return { ...baseState, shapes: initialState ?? {} };
+  return { ...baseState, shapes: initialState ?? {}};
 });
 
 const setState = (fn) => useShapes.set(produce(fn));
 
-export const saveDiagram = (currentUserId, fetchWithCSRF, board) => {
-  const state = useShapes.get();
-  // localStorage.setItem(APP_NAMESPACE, JSON.stringify(state.shapes));
-  // let response = await fetchWithCSRF(`/api-photos/boards/${currentUserId}`, {
-  //   method: 'POST',
-  //   body: newBoard,
-  // });
-  // console.log(response.json());
+export const setPhotos = (photos) => {
+  localStorage.setItem(BOARD_PHOTOS, JSON.stringify(photos))
+}
 
-  // console.log('State.js--saveDiagram', localStorage[APP_NAMESPACE])
+export const getPhotos = () => {
+    const photos = JSON.parse(localStorage.getItem(BOARD_PHOTOS))
+    return photos;
+}
+
+export const saveDiagram = () => {
+  const state = useShapes.get();
+  localStorage.setItem(APP_NAMESPACE, JSON.stringify(state.shapes));
 };
+
+export const deleteShape = () => {
+  setState((state) => {
+    const shape = state.shapes[state.selected];
+    if (shape) {
+      delete state.shapes[state.selected];
+    }
+  });
+  saveDiagram();
+}
 
 export const reset = () => {
   localStorage.removeItem(APP_NAMESPACE);
@@ -42,12 +54,12 @@ export const createRectangle = ({ x, y }) => {
   setState((state) => {
     state.shapes[nanoid()] = {
       type: SHAPE_TYPES.RECT,
-      width: DEFAULTS.RECT.WIDTH,
-      height: DEFAULTS.RECT.HEIGHT,
-      fill: DEFAULTS.RECT.FILL,
-      stroke: DEFAULTS.RECT.STROKE,
-      strokeWidth: DEFAULTS.RECT.STROKEWIDTH,
-      rotation: DEFAULTS.RECT.ROTATION,
+      width: DEFAULTS.WIDTH,
+      height: DEFAULTS.HEIGHT,
+      fill: DEFAULTS.FILL,
+      stroke: DEFAULTS.STROKE,
+      strokeWidth: DEFAULTS.STROKEWIDTH,
+      rotation: DEFAULTS.ROTATION,
       x,
       y,
     };
@@ -60,6 +72,7 @@ export const createPhoto = ({ x, y, width, height, currentPhoto }) => {
       type: SHAPE_TYPES.PHOTO,
       url: currentPhoto,
       rotation: DEFAULTS.ROTATION,
+      stroke: DEFAULTS.STROKE,
       strokeWidth: DEFAULTS.STROKEWIDTH,
       width,
       height,
@@ -83,12 +96,21 @@ export const createCircle = ({ x, y }) => {
   });
 };
 
-export const createText = ({ x, y, image }) => {
+export const createText = ({ x, y }) => {
   setState((state) => {
     state.shapes[nanoid()] = {
+      fontFamily: 'Arial',
+      text: 'enter text',
+      fontSize: 20,
+      align: 'center',
+      verticalAlign:'middle',
+      wrap: 'word',
+      fontStyle: 'bold',
+      fill: 'black',
+      opacity: 50,
       type: SHAPE_TYPES.TEXT,
+      padding: 10,
       rotation: DEFAULTS.ROTATION,
-      image,
       x,
       y,
     };
@@ -122,6 +144,7 @@ export const moveShape = (id, event) => {
       shape.y = event.target.y();
     }
   });
+  saveDiagram()
 };
 
 export const updateAttribute = (attr, value) => {
@@ -133,6 +156,13 @@ export const updateAttribute = (attr, value) => {
       const shapeObject = JSON.stringify(shape)
     }
   });
+  saveDiagram()
+};
+
+export const moveToTop = () => {
+  setState((state) => {
+    console.log('SHAPES state.shapes', JSON.stringify(state.shapes))
+  })
 };
 
 export const transformRectangleShape = (node, id, event) => {
@@ -161,6 +191,7 @@ export const transformRectangleShape = (node, id, event) => {
       );
     }
   });
+  saveDiagram()
 };
 
 export const transformPhotoShape = (node, id, event) => {
@@ -197,6 +228,7 @@ export const transformPhotoShape = (node, id, event) => {
       // Proxy
     }
   });
+  saveDiagram()
 };
 
 export const transformCircleShape = (node, id, event) => {
@@ -219,6 +251,7 @@ export const transformCircleShape = (node, id, event) => {
       );
     }
   });
+  saveDiagram()
 };
 
 export const transformTextShape = (node, id, event) => {
@@ -249,4 +282,5 @@ export const transformTextShape = (node, id, event) => {
       );
     }
   });
+  saveDiagram()
 };

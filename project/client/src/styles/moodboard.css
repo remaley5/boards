@@ -1,5 +1,6 @@
 .moodboard {
     margin-left: 50px;
+    min-width: 1200px;
 }
 
 .moodboard-top {
@@ -125,13 +126,6 @@ canvas {
     z-index: 100;
 }
 
-.board__tools {
-    display: flex;
-    width: 400px;
-    flex-direction: column;
-    margin-left: -50px;
-  }
-
 .ql-container {
     background:white;
   }
@@ -182,4 +176,131 @@ canvas {
     background-color: rgb(87, 86, 86);
     color: white;
     border: none;
+}
+
+
+/* FOLDER DIALOG */
+
+.folder__con {
+    height: 100px;
+    width: 100px;
+    border: 1px solid gray;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    position: relative;
+}
+
+.folder__title {
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: gray;
+    background-color: rgba(255, 255, 255, 0.671);
+    padding: 10px;
+    position: absolute;
+}
+
+.folder__description {
+    position: absolute;
+    opacity: 0;
+    color: rgb(84, 83, 83);
+    background-color: rgb(238, 238, 238);
+    height: 100%;
+    width: 100%;
+    border: 1px solid rgb(228, 228, 228);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: 1px;
+    line-height: 17px;
+    font-size: 12px;
+    padding: 5px;
+}
+
+.folder__description:hover {
+    opacity: 100;
+    z-index: 1000;
+}
+
+.folder__description:hover + .hide {
+    display: block;
+}
+
+
+.images-dialog__header {
+    font-size: 20px;
+    text-transform: uppercase;
+    color: gray;
+    padding-bottom: 20px;
+}
+
+.added__images {
+    display: flex;
+    gap: 20px;
+    overflow: scroll;
+    height: 150px;
+    border-bottom: 1px solid gray;
+    width: 90%;
+    margin:auto;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    padding-bottom: 30px;
+}
+
+.folders__con {
+    padding-bottom: 30px;
+    display: flex;
+    gap: 20px;
+    overflow: scroll;
+}
+
+.folder__con.add {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.add-folder__btn {
+    border: 1px solid gray;
+    padding: 5px 10px;
+}
+
+.photo__con {
+    height: 100px;
+}
+
+.folder-photo {
+    height: 100%;
+}
+
+.photo-selected {
+    opacity: 50%;
+}
+
+.star {
+    position: absolute;
+    padding: 10px;
+    font-size: 30px;
+}
+
+.hidden {
+    display: none;
+}
+.photos__con {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 30px;
+    padding-top: 20px;
+    width: 90%;
+    margin: auto;
+}
+
+.photos__con.select {
+    border-top: 1px solid gray;
 }
